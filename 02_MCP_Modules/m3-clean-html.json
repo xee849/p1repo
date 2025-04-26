@@ -1,0 +1,8 @@
+{
+  "description": "Clean the extracted HTML content by removing unnecessary elements like ads, navigation bars, and scripts.",
+  "instructions": "Focus on retaining article body, main text. Remove scripts, styles, ads, and repetitive sections.",
+  "input": "HTML content",
+  "output_format": {
+    "cleaned_text": "string"
+  }
+}

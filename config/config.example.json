@@ -1,0 +1,26 @@
+{
+  "serpapi": {
+    "apiKey": "YOUR_SERPAPI_KEY"
+  },
+  "openai": {
+    "apiKey": "YOUR_OPENAI_API_KEY",
+    "model": "gpt-4o"
+  },
+  "crawl": {
+    "rateLimit": 2,
+    "maxDepth": 2,
+    "seedUrls": [
+      "https://example.com",
+      "https://anotherexample.com"
+    ],
+    "minTextLength": 200
+  },
+  "storage": {
+    "googleSheetId": "YOUR_GOOGLE_SHEET_ID",
+    "azureCosmosDbUrl": "YOUR_COSMOSDB_URL",
+    "azureCosmosDbKey": "YOUR_COSMOSDB_KEY",
+    "vectorDb": "pinecone", 
+    "pineconeApiKey": "YOUR_PINECONE_API_KEY",
+    "pineconeEnvironment": "YOUR_PINECONE_ENVIRONMENT"
+  }
+}

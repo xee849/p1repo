@@ -1,0 +1,13 @@
+{
+  "description": "Extract named entities such as people, organizations, locations, products, dates, and numbers from the content.",
+  "instructions": "Parse the content and output recognized named entities into categorized lists.",
+  "input": "Cleaned or summarized text",
+  "output_format": {
+    "people": ["string"],
+    "organizations": ["string"],
+    "locations": ["string"],
+    "products": ["string"],
+    "dates": ["string"],
+    "numbers": ["string"]
+  }
+}

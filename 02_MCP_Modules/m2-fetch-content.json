@@ -1,0 +1,8 @@
+{
+  "description": "Describe how to fetch main content from a URL.",
+  "instructions": "Given a URL, explain steps to retrieve the main body of the page while ignoring sidebars, ads, and footers. Output should focus on clean, readable text.",
+  "input": "URL",
+  "output_format": {
+    "content": "string"
+  }
+}

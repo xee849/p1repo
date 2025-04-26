@@ -1,0 +1,8 @@
+{
+  "description": "Summarize the cleaned text into a short, informative paragraph.",
+  "instructions": "Generate a concise summary of the content focusing on the main points, events, or descriptions.",
+  "input": "Cleaned text",
+  "output_format": {
+    "summary": "string"
+  }
+}

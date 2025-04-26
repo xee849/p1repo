@@ -1,0 +1,18 @@
+{
+  "description": "Format the processed information into a final structured JSON output for storage.",
+  "instructions": "Combine summary, extracted entities, original URL, and timestamp into a single structured JSON.",
+  "input": "Summary, entities, URL",
+  "output_format": {
+    "url": "string",
+    "summary": "string",
+    "entities": {
+      "people": ["string"],
+      "organizations": ["string"],
+      "locations": ["string"],
+      "products": ["string"],
+      "dates": ["string"],
+      "numbers": ["string"]
+    },
+    "timestamp": "ISO8601 datetime string"
+  }
+}

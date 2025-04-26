@@ -1,0 +1,8 @@
+{
+  "description": "Extract all useful URLs from the given webpage HTML content.",
+  "instructions": "Identify all anchor tags that point to internal or relevant external links. Ignore links like login pages, ads, or unrelated sections. Return a JSON list of URLs.",
+  "input": "HTML content of the page",
+  "output_format": {
+    "urls": ["string"]
+  }
+}

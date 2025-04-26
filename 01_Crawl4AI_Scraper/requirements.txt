@@ -1,0 +1,6 @@
+httpx
+playwright
+beautifulsoup4
+lxml
+python-dotenv
+aiofiles

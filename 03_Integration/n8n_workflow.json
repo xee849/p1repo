@@ -1,0 +1,129 @@
+{
+  "name": "Crawl4AI-MCP Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "functionCode": "return [{ json: { urls: $env.SEED_URLS.split(',') } }];"
+      },
+      "id": "StartNode",
+      "name": "Seed URLs",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [250, 250]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/fetch",
+        "method": "POST",
+        "sendBody": true,
+        "options": {},
+        "bodyParametersUi": {
+          "parameter": [
+            { "name": "url", "value": "={{ $json[\"url\"] }}" }
+          ]
+        }
+      },
+      "id": "FetchPage",
+      "name": "Fetch Page Content",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [450, 250]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{ json: { clean_text: $json.content.replace(/\\s+/g, ' ').trim() } }];"
+      },
+      "id": "CleanPage",
+      "name": "Clean HTML",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [650, 250]
+    },
+    {
+      "parameters": {
+        "resource": "chat",
+        "operation": "create",
+        "text": "Summarize this content: {{$json[\"clean_text\"]}}",
+        "model": "gpt-4o",
+        "additionalFields": {}
+      },
+      "id": "Summarize",
+      "name": "Summarize Content",
+      "type": "openai.chat",
+      "typeVersion": 1,
+      "position": [850, 250]
+    },
+    {
+      "parameters": {
+        "resource": "chat",
+        "operation": "create",
+        "text": "Extract named entities from this text: {{$json[\"summary\"]}}",
+        "model": "gpt-4o",
+        "additionalFields": {}
+      },
+      "id": "ExtractEntities",
+      "name": "Extract Entities",
+      "type": "openai.chat",
+      "typeVersion": 1,
+      "position": [1050, 250]
+    },
+    {
+      "parameters": {
+        "sheetId": "={{$env.GOOGLE_SHEET_ID}}",
+        "range": "Sheet1!A:E",
+        "options": {
+          "valueInputOption": "RAW"
+        },
+        "fieldsToSend": [
+          "url",
+          "summary",
+          "people",
+          "organizations",
+          "locations"
+        ]
+      },
+      "id": "SaveToSheet",
+      "name": "Save to Google Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [1250, 250]
+    }
+  ],
+  "connections": {
+    "StartNode": {
+      "main": [
+        [
+          { "node": "FetchPage", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "FetchPage": {
+      "main": [
+        [
+          { "node": "CleanPage", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "CleanPage": {
+      "main": [
+        [
+          { "node": "Summarize", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Summarize": {
+      "main": [
+        [
+          { "node": "ExtractEntities", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "ExtractEntities": {
+      "main": [
+        [
+          { "node": "SaveToSheet", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  }
+}
